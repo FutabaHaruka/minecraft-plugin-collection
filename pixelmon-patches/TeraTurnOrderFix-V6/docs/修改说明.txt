@@ -1,9 +1,0 @@
-V6 调整太晶战斗时序：
-
-旧 V5：
-选择招式/登记 tera -> modifyStats -> CalcPriority.checkMoveSpeed -> 轮到行动时 useAttack -> activateReady -> 太晶
-
-V6：
-选择招式/登记 tera -> DOACTION 开始 -> activateReady -> modifyStats -> CalcPriority.checkMoveSpeed -> useAttack/执行招式
-
-这样太晶状态在本回合速度和优先级排序之前建立。useAttack 中的旧激活钩子不删除，作为异常路径兜底。
