@@ -1,0 +1,10 @@
+name: FakeCreativeGuard
+main: cn.licry.fakecreativeguard.FakeCreativeGuard
+version: 1.1.0
+author: OpenAI
+softdepend: [ProtocolLib]
+description: Blocks unauthorized creative-mode state and creative inventory packets.
+permissions:
+  fakecreativeguard.bypass:
+    description: Allows legitimate creative mode and creative inventory packets.
+    default: op

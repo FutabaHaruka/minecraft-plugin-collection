@@ -1,0 +1,60 @@
+# harukaexchange - HarukaEdit.exchange
+# 适用于 Bukkit/Spigot/CatServer 1.12.2
+
+messages:
+  prefix: "&8[&bHarukaExchange&8] &r"
+  no-permission: "&c你没有权限执行此操作。"
+  player-only: "&c该命令只能由玩家执行。"
+  player-not-found: "&c未找到在线玩家：&e%player%"
+  recipe-not-found: "&c未找到兑换：&e%id%"
+  invalid-id: "&c兑换 ID 只能包含中文、英文、数字、下划线和短横线。"
+  opened: "&a已打开兑换：&e%id%"
+  saved: "&a兑换 &e%id% &a已保存。"
+  deleted: "&a兑换 &e%id% &a已删除。"
+  reloaded: "&a配置与兑换数据已重载。"
+  success: "&a兑换成功。"
+  not-enough: "&c材料不足，无法兑换。"
+  empty-recipe: "&c该兑换尚未配置完整。"
+  editor-tip: "&e将物品放在鼠标上，左键三个编辑槽位即可复制保存；右键清空。"
+  set-success: "&a已设置 &e%id% &a的 &e%part%&a。"
+  clear-success: "&a已清空 &e%id% &a的 &e%part%&a。"
+  import-complete: "&a旧数据迁移完成：成功 &e%success% &a条，跳过 &e%skipped% &a条。"
+  import-missing: "&c未找到旧目录：plugins/XinxinExchange"
+
+menu:
+  title: "&8NPC兑换 | &f%name%"
+  editor-title: "&8编辑兑换 | &f%id%"
+  size: 27
+  input-1-slot: 10
+  input-2-slot: 12
+  arrow-slot: 14
+  output-slot: 16
+  info-slot: 22
+  border:
+    material: STAINED_GLASS_PANE
+    data: 15
+    name: " "
+  arrow:
+    material: ARROW
+    data: 0
+    name: "&e两格材料 &7→ &a一格产物"
+    lore:
+      - "&7点击右侧产物兑换一次"
+      - "&7Shift+左键兑换最大次数"
+  info:
+    material: BOOK
+    data: 0
+    name: "&b兑换说明"
+    lore:
+      - "&7左侧显示所需的两种物品"
+      - "&7右侧显示兑换获得的物品"
+      - "&7会比对完整物品数据与 NBT"
+
+exchange:
+  max-shift-batch: 64
+  drop-overflow-at-player: true
+
+legacy-import:
+  old-folder: "XinxinExchange"
+  scan-many-data: true
+  scan-fixed-data: true

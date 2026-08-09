@@ -1,0 +1,15 @@
+/target/
+/.idea/
+*.iml
+*.log
+.DS_Store
+
+/build-check/
+/all-classes/
+/runtime-test/classes/
+
+/build/
+
+/build-offline/
+
+/build-rc5/

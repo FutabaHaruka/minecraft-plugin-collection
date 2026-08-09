@@ -1,0 +1,67 @@
+name: CrownControl
+main: cn.licry.crowncontrol.CrownControlPlugin
+version: 1.0.0-rc8-p1
+load: POSTWORLD
+authors: [LiChenYun]
+description: Native Pixelmon 1.12.2 gold/silver crown policy interceptor; money and PlayerPoints only.
+softdepend: [Vault, PlayerPoints, PlaceholderAPI]
+commands:
+  crowncontrol:
+    aliases:
+      - crownctl
+      - crownc
+    description: CrownControl help, diagnostics and Pokemon list administration.
+permissions:
+  crowncontrol.default:
+    description: Default player permission fallback.
+    default: true
+  crowncontrol.command:
+    description: Compatibility bundle for player commands.
+    default: false
+  crowncontrol.use:
+    description: Global native crown-use override. Explicit true/false overrides *.default.
+    default: false
+  crowncontrol.crown.default:
+    description: Global crown-use fallback override.
+    default: false
+  crowncontrol.command.help:
+    description: Allows viewing CrownControl help. Explicit false overrides crowncontrol.default.
+    default: true
+  crowncontrol.command.check:
+    default: false
+  crowncontrol.command.list:
+    default: false
+
+  crowncontrol.admin:
+    description: Full CrownControl administration bundle.
+    default: op
+    children:
+      crowncontrol.admin.reload: true
+      crowncontrol.admin.lists: true
+      crowncontrol.admin.status: true
+  crowncontrol.admin.reload:
+    default: false
+  crowncontrol.admin.lists:
+    description: Allows managing global Pokemon black/white lists.
+    default: false
+  crowncontrol.admin.status:
+    description: Shows command binding, classloader and native event bridge status.
+    default: false
+  crowncontrol.bypass.pokemon-blacklist:
+    description: Bypasses the global Pokemon blacklist.
+    default: op
+  crowncontrol.bypass.pokemon-whitelist:
+    description: Bypasses the global Pokemon whitelist.
+    default: false
+  crowncontrol.bypass.pokemon-lists:
+    description: Bypasses both Pokemon blacklists and whitelists.
+    default: false
+  crowncontrol.bypass.cost:
+    description: Bypasses all extra configured costs.
+    default: op
+  crowncontrol.bypass.chance:
+    description: Makes native crown interception chance always pass.
+    default: op
+  crowncontrol.bypass.cooldown:
+    description: Bypasses the global crown cooldown.
+    default: op

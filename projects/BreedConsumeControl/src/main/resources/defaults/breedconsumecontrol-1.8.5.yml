@@ -1,0 +1,79 @@
+config-version: 3
+
+rules:
+  # 插件总开关。
+  enabled: true
+
+  # parent-range：每项IV在父母对应IV的最小值~最大值之间均匀随机（含边界）。
+  # exact-target-v：使用旧版目标V数量算法。
+  iv-generation-mode: 'parent-range'
+
+  # true：只允许同V父母升级，1V+1V=2V……5V+5V=6V。
+  strict-equal-upgrade-mode: true
+
+  zero-v:
+    enabled: true
+    result-v: 0
+
+  upgrade:
+    minimum-parent-v: 1
+    maximum-parent-v: 5
+    maximum-result-v: 6
+    allow-maximum-v-breeding: false
+
+  # 仅在 strict-equal-upgrade-mode=false 时生效。
+  flexible-mode:
+    allow-equal-parent-v: true
+    allow-adjacent-parent-v: false
+    maximum-parent-v-difference: 0
+    result-v-basis: 'higher'
+    result-v-offset: 1
+
+  item-lock:
+    # 六种力量道具（狗圈）由 Pixelmon 的 EVAdjusting 内部属性识别。
+    enabled: true
+    apply-to-zero-zero: false
+    # 单狗圈时要求另一只父母携带不变之石；双狗圈时自动不要求不变之石。
+    require-exactly-one-everstone: true
+    require-at-least-one-power-item: true
+    # true：双方可各带一个狗圈，两个不同属性同时锁定。
+    allow-two-power-items: true
+    require-different-parents: true
+    require-power-item-perfect-iv: true
+    # 严格同V配对无高低V之分，实际携带道具的一侧就是锁定来源。
+    everstone-parent-role: 'any'
+    power-item-parent-role: 'any'
+
+  display:
+    egg-ivs-on-create: true
+    egg-ivs-on-collect: true
+    synthesis-success: true
+
+  shiny-only-with-shiny: true
+
+  parent-consume:
+    enabled: true
+    consume-zero-v: true
+    delay-ticks: 1
+    fail-closed: true
+
+messages:
+  strict-synthesis-zero-disabled: '&8[&d个体合成&8] &c严格模式禁止含0V父母的该配对。当前：&f{first}V &7/ &f{second}V'
+  strict-synthesis-minimum: '&8[&d个体合成&8] &c父母V数不在允许升级范围。当前：&f{first}V &7/ &f{second}V &7允许：&f{min}-{parent-max}V'
+  strict-synthesis-mismatch: '&8[&d个体合成&8] &c严格模式要求两只父母V数完全相同。当前：&f{first}V &7/ &f{second}V &7正确示例：&f1V+1V=2V'
+  strict-synthesis-maximum: '&8[&d个体合成&8] &e已达到最高V，不能继续严格升级。当前：&f{first}V &7/ &f{second}V &7上限：&f{max}V'
+  strict-synthesis-failed: '&8[&d个体合成&8] &c严格IV或性格校验失败，本次合成已取消。'
+  strict-synthesis-success: '&8[&d个体合成&8] &a严格合成完成：&e{first}V + {second}V → {v}V蛋 &7（目标固定为 {target}V）'
+  strict-item-lock-required: '&8[&d个体合成&8] &c需使用一种或两种力量道具；单狗圈时另一只父母需带不变之石，双狗圈时两个锁定同时生效。'
+  strict-item-lock-role-mismatch: '&8[&d个体合成&8] &c道具携带者不符合 everstone-parent-role 或 power-item-parent-role 配置。'
+  strict-power-item-iv-not-perfect: '&8[&d个体合成&8] &c{power-item}对应的{power-stat}必须为31，当前为{locked-iv}。'
+  strict-power-item-locked: '&8[&d个体合成&8] &7锁定结果：&e性格 {nature} &8| &b{power-item}固定{power-stat} IV={locked-iv}'
+  strict-egg-ivs: '&8[&d个体合成&8] &7严格蛋个体：{ivs} &8| &7原始性格：&e{nature}'
+  strict-nature-locked: '&8[&d个体合成&8] &7蛋的原始性格已锁定：&e{nature} &7（来源：{nature-source}；薄荷修正不继承）'
+  shiny-mismatch: '&8[&d个体合成&8] &c闪光只能与闪光配对，普通只能与普通配对。'
+  parents-consumed-on-egg-created: '&8[&d个体合成&8] &e严格蛋已登记，两只父母已永久消耗。'
+  parent-consume-failed: '&8[&d个体合成&8] &c父母消耗事务失败，蛋已按失败策略处理。'
+  parents-missing: '&8[&d个体合成&8] &c未同时找到两只父母，本次未删除任何宝可梦。'
+  parent-range-synthesis-failed: '&8[&d个体合成&8] &c无法安全生成父母区间个体蛋，本次合成已取消。'
+  parent-range-synthesis-success: '&8[&d个体合成&8] &a区间孵蛋完成：每项IV均在父母对应最小值到最大值之间随机，结果为 {v}V。'
+  parent-range-egg-ivs: '&8[&d个体合成&8] &7区间随机蛋IV：{ivs} &8| &7原始性格：&e{nature}'

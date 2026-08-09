@@ -1,0 +1,36 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="immortalers_delight_recipe_fix"
+version="1.1.0"
+displayName="Immortalers Delight Recipe Log Fix"
+authors="Wang Zhu / OpenAI"
+description='''
+Server-side Forge 1.20.1 compatibility patch.
+Filters the accidental per-tick EnchantalCoolerRecipe.matches debug output
+without changing recipe matching, item consumption, or machine behavior.
+'''
+displayTest="IGNORE_SERVER_VERSION"
+
+[[dependencies.immortalers_delight_recipe_fix]]
+modId="forge"
+mandatory=true
+versionRange="[47,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.immortalers_delight_recipe_fix]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.20.1,1.20.2)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.immortalers_delight_recipe_fix]]
+modId="immortalers_delight"
+mandatory=false
+versionRange="[1.0.0,)"
+ordering="AFTER"
+side="BOTH"

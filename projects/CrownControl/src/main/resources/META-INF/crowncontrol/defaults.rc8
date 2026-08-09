@@ -1,0 +1,165 @@
+# CrownControl 1.0.0-rc8
+# 严格存储目录：plugins/CrownControl/；目录名不匹配或所有权标记不匹配时插件拒绝启动。
+# 仅拦截 Pixelmon 原生金色王冠与银色王冠，不配置/识别自定义皇冠。
+# 插件不会主动修改个体值，也不会消耗、返还或检查任何物品/NBT；Pixelmon 自行执行极限训练并管理原生皇冠。
+# 插件只管理：黑白名单、精灵类别、权限、金币、点券、概率、冷却与审计。
+# 固定顺序：黑名单 -> 白名单 -> 精灵类别 -> 权限/冷却/货币预检 -> 概率 -> 原生放行/取消 -> 极限训练结果核验。
+# 配置只写入 CrownControl 独占目录中的 config.yml；内置默认值使用唯一非 YAML 资源名。
+
+settings:
+  audit-log: true
+  allow-eggs: false
+  # 核验轮询间隔。银色王冠会先打开 Pixelmon 原生属性选择界面，因此不能只核验一次。
+  native-verification-ticks: 2
+  # 最长等待 600 tick（约 30 秒），用于等待银色王冠属性选择完成。
+  native-verification-timeout-ticks: 600
+  warn-fractional-probability: true
+
+pokemon-lists:
+  blacklist:
+    - MissingNo
+  whitelist: []
+  op-bypasses-blacklist: true
+
+rules:
+  enabled: true
+  cooldown-seconds: 30
+  # SUCCESS / ATTEMPT / COST / ALWAYS / NEVER
+  cooldown-on: SUCCESS
+  allowed-categories:
+    - normal
+    - legendary
+    - mythical
+    - ultra-beast
+  costs:
+    money: 100000.0
+    points: 10
+  chance:
+    success-rate: 35.0
+    failure-rate: 65.0
+    # ATTEMPT / SUCCESS / FAILURE / NEVER；仅控制插件管理的金币和点券。
+    consume-on: ATTEMPT
+
+categories:
+  mythical:
+    - Mew
+    - Celebi
+    - Jirachi
+    - Deoxys
+    - Phione
+    - Manaphy
+    - Darkrai
+    - Shaymin
+    - Arceus
+    - Victini
+    - Keldeo
+    - Meloetta
+    - Genesect
+    - Diancie
+    - Hoopa
+    - Volcanion
+    - Magearna
+    - Marshadow
+    - Zeraora
+    - Meltan
+    - Melmetal
+    - Zarude
+  ultra-beast:
+    - Nihilego
+    - Buzzwole
+    - Pheromosa
+    - Xurkitree
+    - Celesteela
+    - Kartana
+    - Guzzlord
+    - Poipole
+    - Naganadel
+    - Stakataka
+    - Blacephalon
+  legendary-fallback:
+    - Articuno
+    - Zapdos
+    - Moltres
+    - Mewtwo
+    - Raikou
+    - Entei
+    - Suicune
+    - Lugia
+    - Ho-Oh
+    - Regirock
+    - Regice
+    - Registeel
+    - Latias
+    - Latios
+    - Kyogre
+    - Groudon
+    - Rayquaza
+    - Uxie
+    - Mesprit
+    - Azelf
+    - Dialga
+    - Palkia
+    - Heatran
+    - Regigigas
+    - Giratina
+    - Cresselia
+    - Cobalion
+    - Terrakion
+    - Virizion
+    - Tornadus
+    - Thundurus
+    - Reshiram
+    - Zekrom
+    - Landorus
+    - Kyurem
+    - Xerneas
+    - Yveltal
+    - Zygarde
+    - TypeNull
+    - Silvally
+    - TapuKoko
+    - TapuLele
+    - TapuBulu
+    - TapuFini
+    - Cosmog
+    - Cosmoem
+    - Solgaleo
+    - Lunala
+    - Necrozma
+    - Zacian
+    - Zamazenta
+    - Eternatus
+    - Kubfu
+    - Urshifu
+    - Regieleki
+    - Regidrago
+    - Glastrier
+    - Spectrier
+    - Calyrex
+
+points:
+  provider: PLAYERPOINTS
+  required: false
+
+messages:
+  prefix: '&8[&6皇冠控制&8] '
+  processing: '&e上一笔原生金银皇冠操作仍在核验中；银色王冠可能正在等待属性选择。'
+  no-permission: '&c你没有使用金银皇冠极限训练功能的权限，已拒绝原生操作。'
+  global-blacklisted: '&c{species} 位于精灵黑名单，禁止使用金银皇冠。'
+  not-global-whitelisted: '&c{species} 不在精灵白名单中，禁止使用金银皇冠。'
+  category-denied: '&c全局规则不允许对 {category} 类精灵 {species} 使用金银皇冠。'
+  egg-denied: '&c不能对精灵蛋使用金银皇冠，已拒绝原生操作。'
+  no-pokemon: '&c没有取得本次原生皇冠操作的目标精灵。'
+  cooldown: '&c全局皇冠极限训练仍在冷却中，剩余约 {seconds} 秒。'
+  money-missing: '&c金币不足，需要 {amount}，已拒绝原生操作。'
+  points-missing: '&c点券不足，需要 {amount}，已拒绝原生操作。'
+  intercept-allowed: '&a规则验证与概率判定通过：允许使用 {crown} 对 {species} 执行原生极限训练。'
+  intercept-chance-failed: '&c本次概率判定失败，已取消原生极限训练，并按配置结算金币/点券。'
+  native-success: '&a原生皇冠使用成功：{species} 新增极限训练属性：&e{stats}&a。'
+  native-no-change: '&c已放行原生皇冠，但等待超时后未检测到新的极限训练属性；金币/点券已尝试退还。'
+  native-verification-error: '&c原生极限训练结果核验失败，金币/点券已尝试退还，请联系管理员。'
+  verification-unavailable: '&c当前 Pixelmon 构建无法读取极限训练状态；为避免误扣费，本次原生皇冠操作已取消。'
+  internal-error: '&c皇冠拦截处理异常，已取消原生操作并尝试回滚金币/点券。'
+  event-not-cancelable: '&4当前 Pixelmon 构建的原生事件不可取消，规则无法安全执行，请联系管理员。'
+  invalid-config: '&c全局规则配置无效，已拒绝原生皇冠操作，请联系管理员。'
+  unsafe-event-thread: '&c检测到非主线程皇冠事件，为保护经济数据，本次操作已取消。'

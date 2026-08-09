@@ -1,0 +1,180 @@
+# MintControl 1.0.0-rc17
+# 严格存储目录：plugins/MintControl/；目录名不匹配或所有权标记不匹配时插件拒绝启动。
+# 仅拦截 Pixelmon 原生薄荷，不配置/识别自定义薄荷。
+# 插件不会消耗、返还或检查任何物品/NBT；Pixelmon 自行管理原生薄荷。
+# 插件只管理：黑白名单、精灵类别、权限、金币、点券、概率和冷却。
+# 固定顺序：黑名单 -> 白名单 -> 精灵类别 -> 权限/冷却/货币预检 -> 概率。
+# 配置只写入 Bukkit 为本插件分配的 dataFolder/config.yml；禁止访问其他插件目录。
+# 本配置已补齐至朱紫 DLC（全国图鉴 #1025），并额外兼容魔改服常见特殊悖谬分类。
+
+settings:
+  audit-log: true
+  allow-eggs: false
+  native-verification-ticks: 1
+  warn-fractional-probability: true
+pokemon-lists:
+  blacklist:
+  - MissingNo
+  whitelist: []
+  op-bypasses-blacklist: true
+rules:
+  enabled: true
+  cooldown-seconds: 30
+  cooldown-on: SUCCESS
+  allowed-categories:
+  - normal
+  - legendary
+  - mythical
+  - ultra-beast
+  costs:
+    money: 100000.0
+    points: 10
+  chance:
+    success-rate: 35.0
+    failure-rate: 65.0
+    consume-on: ATTEMPT
+categories:
+  mythical:
+  - Mew
+  - Celebi
+  - Jirachi
+  - Deoxys
+  - Phione
+  - Manaphy
+  - Darkrai
+  - Shaymin
+  - Arceus
+  - Victini
+  - Keldeo
+  - Meloetta
+  - Genesect
+  - Diancie
+  - Hoopa
+  - Volcanion
+  - Magearna
+  - Marshadow
+  - Zeraora
+  - Meltan
+  - Melmetal
+  - Zarude
+  # 第九世代幻之宝可梦（朱紫 DLC）
+  - Pecharunt
+  ultra-beast:
+  - Nihilego
+  - Buzzwole
+  - Pheromosa
+  - Xurkitree
+  - Celesteela
+  - Kartana
+  - Guzzlord
+  - Poipole
+  - Naganadel
+  - Stakataka
+  - Blacephalon
+  legendary-fallback:
+  - Articuno
+  - Zapdos
+  - Moltres
+  - Mewtwo
+  - Raikou
+  - Entei
+  - Suicune
+  - Lugia
+  - Ho-Oh
+  - Regirock
+  - Regice
+  - Registeel
+  - Latias
+  - Latios
+  - Kyogre
+  - Groudon
+  - Rayquaza
+  - Uxie
+  - Mesprit
+  - Azelf
+  - Dialga
+  - Palkia
+  - Heatran
+  - Regigigas
+  - Giratina
+  - Cresselia
+  - Cobalion
+  - Terrakion
+  - Virizion
+  - Tornadus
+  - Thundurus
+  - Reshiram
+  - Zekrom
+  - Landorus
+  - Kyurem
+  - Xerneas
+  - Yveltal
+  - Zygarde
+  - TypeNull
+  - Silvally
+  - TapuKoko
+  - TapuLele
+  - TapuBulu
+  - TapuFini
+  - Cosmog
+  - Cosmoem
+  - Solgaleo
+  - Lunala
+  - Necrozma
+  - Zacian
+  - Zamazenta
+  - Eternatus
+  - Kubfu
+  - Urshifu
+  - Regieleki
+  - Regidrago
+  - Glastrier
+  - Spectrier
+  - Calyrex
+  # 传说 阿尔宙斯 / 洗翠地区
+  - Enamorus
+  # 第九世代：帕底亚四灾厄与封面神兽
+  - Wo-Chien
+  - Chien-Pao
+  - Ting-Lu
+  - Chi-Yu
+  - Koraidon
+  - Miraidon
+  # 第九世代 DLC：北上乡与蓝莓学园相关传说宝可梦
+  - Okidogi
+  - Munkidori
+  - Fezandipiti
+  - Ogerpon
+  - Terapagos
+  # 魔改服兼容：常被按高阶/神兽处理的特殊悖谬宝可梦
+  # 若你的服务器希望它们仍按普通精灵处理，可删除下面 6 项。
+  - Walking Wake
+  - Iron Leaves
+  - Gouging Fire
+  - Raging Bolt
+  - Iron Boulder
+  - Iron Crown
+points:
+  provider: PLAYERPOINTS
+  required: false
+messages:
+  prefix: '&8[&d薄荷控制&8] '
+  processing: '&e上一笔原生薄荷操作仍在核验，请稍后。'
+  no-permission: '&c你没有使用全局薄荷洗练功能的权限，已拒绝原生操作。'
+  global-blacklisted: '&c{species} 位于精灵黑名单，禁止使用任何薄荷。'
+  not-global-whitelisted: '&c{species} 不在精灵白名单中，禁止使用任何薄荷。'
+  category-denied: '&c全局规则不允许对 {category} 类精灵 {species} 使用薄荷。'
+  egg-denied: '&c不能对精灵蛋使用薄荷，已拒绝原生操作。'
+  no-pokemon: '&c没有取得本次原生薄荷操作的目标精灵。'
+  cooldown: '&c全局薄荷洗练仍在冷却中，剩余约 {seconds} 秒。'
+  money-missing: '&c金币不足，需要 {amount}，已拒绝原生操作。'
+  points-missing: '&c点券不足，需要 {amount}，已拒绝原生操作。'
+  intercept-allowed: '&a规则验证与概率判定通过：允许使用 {mint} 对 {species} 执行原生性格修改。'
+  intercept-chance-failed: '&c本次洗练概率判定失败，已取消性格修改，并按配置结算金币/点券。'
+  native-success: '&a原生薄荷使用成功：{species} 的性格由 &e{old} &a变为 &e{new}&a。'
+  native-no-change: '&c已放行原生薄荷，但 Pixelmon 未完成性格修改；本次金币/点券已退还。'
+  native-verification-error: '&c原生修改结果核验失败，金币/点券已尝试退还，请联系管理员。'
+  internal-error: '&c薄荷拦截处理异常，已取消原生操作并尝试回滚消耗。'
+  event-not-cancelable: '&4当前 Pixelmon 构建的原生事件不可取消，规则无法安全执行，请联系管理员。'
+  invalid-config: '&c全局规则配置无效，已拒绝原生薄荷操作，请联系管理员。'
+  unsafe-event-thread: '&c检测到非主线程薄荷事件，为保护背包和经济数据，本次操作已取消。'

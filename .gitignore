@@ -1,0 +1,18 @@
+# Java / build outputs
+*.class
+*.jar
+target/
+build/
+out/
+.gradle/
+.idea/
+*.iml
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Local/private dependencies
+libs-private/
+reference-jars/

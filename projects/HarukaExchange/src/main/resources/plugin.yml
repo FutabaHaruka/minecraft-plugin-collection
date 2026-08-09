@@ -1,0 +1,17 @@
+name: harukaexchange
+main: HarukaEdit.exchange.HarukaExchange
+version: 1.0.0
+author: HarukaEdit
+description: Two-input one-output NPC-style item exchange plugin for Bukkit/CatServer 1.12.2.
+commands:
+  harukaexchange:
+    aliases: [hxe, hexchange]
+    description: HarukaExchange main command
+    usage: /<command> help
+permissions:
+  harukaexchange.use:
+    description: Open and use exchange menus
+    default: true
+  harukaexchange.admin:
+    description: Edit, delete, reload and migrate exchanges
+    default: op

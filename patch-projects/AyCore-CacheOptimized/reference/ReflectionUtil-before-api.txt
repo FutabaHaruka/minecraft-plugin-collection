@@ -1,0 +1,17 @@
+Compiled from "ReflectionUtil.java"
+public class com.aystudio.core.bukkit.util.common.ReflectionUtil {
+  public com.aystudio.core.bukkit.util.common.ReflectionUtil();
+    descriptor: ()V
+
+  public static java.lang.Object invokeMethod(java.lang.Object, java.lang.String);
+    descriptor: (Ljava/lang/Object;Ljava/lang/String;)Ljava/lang/Object;
+
+  public static java.lang.Object invokeMethod(java.lang.Object, java.lang.String, java.lang.Class<?>[], java.lang.Object...);
+    descriptor: (Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
+
+  public static java.lang.Object invokeDeclaredMethod(java.lang.Object, java.lang.String, java.lang.Class<?>[], java.lang.Object...);
+    descriptor: (Ljava/lang/Object;Ljava/lang/String;[Ljava/lang/Class;[Ljava/lang/Object;)Ljava/lang/Object;
+
+  public static boolean hasClass(java.lang.String);
+    descriptor: (Ljava/lang/String;)Z
+}

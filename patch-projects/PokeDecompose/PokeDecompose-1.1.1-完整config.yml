@@ -1,0 +1,288 @@
+# PokeDecompose 1.1.1 完整配置文件
+# 六类分解执行区：普通、闪光、神兽、闪光神兽、幻兽、闪光幻兽。
+# 每一类均可单独配置控制台指令、成功提示消息和 GUI 奖励说明。
+# 异兽继续归入神兽分类。
+# 修改配置后可使用 /pd reload 重载；若修改未生效，建议完整重启服务器。
+#
+# 命令与提示支持变量：
+# %player% / %玩家%       玩家名称
+# %price% / %价格%        分解价格
+# %pokemon% / %宝可梦%    精灵名称
+# %type% / %分类%         normal / legendary / mythical
+# %shiny% / %闪光%        true / false
+# %reward_zone% / %执行区% 实际执行区名称
+# %reward% / %奖励%       当前分类的 GUI 奖励说明
+# %calculated_price% / %计算价格% 原价格公式计算结果（仅 GUI 可用）
+
+# ==================== 普通精灵执行区 ====================
+Command:
+  - "money give %player% %price%"
+
+# ==================== 普通闪光执行区 ====================
+ShinyCommand:
+  - "money give %player% %price%"
+  # 示例：取消下一行前面的 #，可额外广播普通闪光分解消息
+  # - "broadcast [精灵分解] %player% 分解了闪光精灵 %pokemon%"
+
+# ==================== 神兽执行区 ====================
+# Pixelmon 异兽也归入此区。
+LegendaryCommand:
+  - "money give %player% %price%"
+
+# ==================== 闪光神兽执行区 ====================
+ShinyLegendaryCommand:
+  - "money give %player% %price%"
+
+# ==================== 幻兽执行区 ====================
+MythicalCommand:
+  - "money give %player% %price%"
+
+# ==================== 闪光幻兽执行区 ====================
+ShinyMythicalCommand:
+  - "money give %player% %price%"
+
+# Pixelmon 8.4.2 的 isLegendary() 会把神兽与幻兽合并，
+# 因此插件使用内部物种 ID 名单将幻兽优先分离出来。
+# 名称必须使用 Pixelmon EnumSpecies 的英文内部 ID，可按服务器规则自行增删。
+classification:
+  mythical-species:
+    - "Mew"
+    - "Celebi"
+    - "Jirachi"
+    - "Deoxys"
+    - "Phione"
+    - "Manaphy"
+    - "Darkrai"
+    - "Shaymin"
+    - "Arceus"
+    - "Victini"
+    - "Keldeo"
+    - "Meloetta"
+    - "Genesect"
+    - "Diancie"
+    - "Hoopa"
+    - "Volcanion"
+    - "Magearna"
+    - "Marshadow"
+    - "Zeraora"
+    - "Meltan"
+    - "Melmetal"
+    - "Zarude"
+
+# ==================== 六类 GUI 奖励提示 ====================
+# 此处只控制主界面宝可梦 Lore 和确认界面的“获得”提示。
+# 不会自动发放奖励；实际奖励仍由上方六个 Command 列表执行。
+# 请确保这里的文字与对应命令保持一致。
+GuiReward:
+  # 普通精灵示例：显示 200 金币
+  normal: "&6200 金币"
+  # 普通闪光示例：显示 5 个分解石
+  shiny: "&d5 个分解石"
+  # 神兽/异兽
+  legendary: "&61000 金币"
+  # 闪光神兽/闪光异兽
+  shiny_legendary: "&d15 个分解石"
+  # 幻兽
+  mythical: "&b1500 金币"
+  # 闪光幻兽
+  shiny_mythical: "&320 个分解石"
+
+price:
+  # 分解基础价格（无额外条件时的起步价）
+  basePrice: 200
+  # 每个个体值的价格（使用总个体值计算）
+  ivPrice: 2
+  # 每级的价格
+  levelPrice: 5
+  # 传说/神兽加成
+  legendaryPrice: 3000
+  # 异兽加成（可选）
+  ultraPrice: 500
+  # 闪光倍率（非闪光=1）
+  shinyMultiplier: 1.5
+  # 固定分解价格（优先级最高，按宝可梦名匹配）
+  fixed:
+    # 示例：皮卡丘固定 1000
+    皮卡丘: 1000
+
+limit:
+  # 每日分解次数默认值（权限会覆盖此值）
+  daily: 5
+  # 次数权限：pokedecompose.limit.<次数>
+  # 例如 pokedecompose.limit.20 表示每日 20 次
+  # 绕过限制权限：pokedecompose.limit.bypass
+
+Gui:
+  mainGui:
+    # 主界面标题
+    title: "&8精灵分解界面"
+    # 主界面中显示宝可梦名字的显示格式
+    name: "&e%宝可梦%"
+    # 关闭按钮槽位（右下角默认 44）
+    closeSlot: 44
+    slot:
+      # 主界面布局（字符串里数字代表队伍位）
+      # 1 代表队伍第1只，以此类推
+      - ""
+      - " 1  2  3 "
+      - ""
+      - " 4  5  6 "
+      - ""
+    items:
+      # 物品布局说明：
+      # slots: slot / slots[] / "ALL" / "BORDER" / "INNER"
+      # glow: true 则物品带附魔光效
+      border:
+        # 边框填充物
+        material: "STAINED_GLASS_PANE"
+        data: 15
+        name: " "
+        glow: false
+        slots: "BORDER"
+      inner:
+        # 内部填充物（不影响宝可梦显示位）
+        material: "STAINED_GLASS_PANE"
+        data: 7
+        name: " "
+        glow: false
+        slots: "INNER"
+        exclude-slots:
+          - 10
+          - 13
+          - 16
+          - 28
+          - 31
+          - 34
+      playerInfo:
+        # 左上角玩家信息
+        material: "BOOK"
+        data: 0
+        name: "&a分解次数"
+        lore:
+          - "&7总次数: &e%总次数%"
+          - "&7已用次数: &e%已用次数%"
+          - "&7剩余次数: &e%剩余次数%"
+        slot: 0
+      close:
+        # 右下角关闭按钮
+        material: "BARRIER"
+        data: 0
+        name: "&c关闭"
+        slot: 44
+
+  confirmGui:
+    # 确认界面标题
+    title: "&c确认分解"
+    # 确认界面大小（必须是 9 的倍数）
+    size: 27
+    # 宝可梦显示位置
+    pokemonSlot: 13
+    # 确认按钮槽位
+    confirmSlot: 11
+    # 取消按钮槽位
+    cancelSlot: 15
+    items:
+      # 物品布局说明：
+      # slots: slot / slots[] / "ALL" / "BORDER" / "INNER"
+      # glow: true 则物品带附魔光效
+      # exclude-slots: 排除不覆盖的槽位
+      border:
+        # 边框填充物
+        material: "STAINED_GLASS_PANE"
+        data: 15
+        name: " "
+        glow: false
+        slots: "BORDER"
+      inner:
+        # 内部填充物（排除确认/取消/宝可梦位）
+        material: "STAINED_GLASS_PANE"
+        data: 7
+        name: " "
+        glow: false
+        slots: "INNER"
+        exclude-slots:
+          - 11
+          - 13
+          - 15
+      confirm:
+        # 确认按钮物品
+        material: "STAINED_CLAY"
+        data: 5
+        name: "&a确认分解"
+        lore:
+          - "&7分解: &f%宝可梦%"
+          - "&7获得: &e%价格%"
+        slot: 11
+      cancel:
+        # 取消按钮物品
+        material: "STAINED_CLAY"
+        data: 14
+        name: "&c取消"
+        lore:
+          - "&7返回上级"
+        slot: 15
+
+lore:
+  # 宝可梦物品 Lore 模板
+  # 支持占位符：%等级%、%个体_血量%、%努力_血量%、%闪光%、%性别% 等
+  - "&f"
+  - "&a ▶ &b等级: &f%等级% "
+  - "&a ▶ &b个体信息"
+  - "&f  ▪ &a血量:&f %个体_血量% &a攻击:&f %个体_攻击%"
+  - "&f  ▪ &a速度:&f %个体_速度% &a防御:&f %个体_防御%"
+  - "&f  ▪ &a特攻:&f %个体_特攻% &a特防:&f %个体_特防%"
+  - "&a ▶ &b努力值信息"
+  - "&f  ▪ &a血量:&f %努力_血量% &a攻击:&f %努力_攻击%"
+  - "&f  ▪ &a速度:&f %努力_速度% &a防御:&f %努力_防御%"
+  - "&f  ▪ &a特攻:&f %努力_特攻% &a特防:&f %努力_特防%"
+  - "&a ▶ &b基础信息:"
+  - "&f  ▪ &a闪光: &f%闪光%"
+  - "&f  ▪ &a特性: &f%特性%"
+  - "&f  ▪ &a性格: &f%性格%"
+  - "&f  ▪ &a体型: &f%体型%"
+  - "&f  ▪ &a性别: &f%性别%"
+  - "&f  ▪ &a绑定: &f%绑定%"
+  - "&f  ▪ &a昵称: &f%昵称%"
+  - ""  
+  - "  &c分解价格: &e%价格%"
+
+messages:
+  # 消息前缀
+  prefix: "&7[&a分解&7] "
+  # 无权限
+  no-permission: "&c你没有权限使用该功能。"
+  # 队伍无可分解宝可梦
+  no-pokemon: "&c你的队伍没有可分解的宝可梦。"
+  # 队伍至少保留一只
+  last-pokemon: "&c至少保留一只宝可梦。"
+  # 旧版统一成功提示，仅在某个分类提示缺失或留空时作为回退。
+  decompose-success: "&a已分解 &e%宝可梦%&a，获得 %奖励%&a。"
+
+  # 普通精灵分解成功提示
+  decompose-success-normal: "&a普通精灵 &e%宝可梦% &a分解成功，获得 %奖励%&a。"
+  # 普通闪光精灵分解成功提示
+  decompose-success-shiny: "&e闪光精灵 &6%宝可梦% &e分解成功，获得 %奖励%&e。"
+  # 神兽或异兽分解成功提示
+  decompose-success-legendary: "&d神兽 &e%宝可梦% &d分解成功，获得 %奖励%&d。"
+  # 闪光神兽或闪光异兽分解成功提示
+  decompose-success-shiny-legendary: "&5闪光神兽 &e%宝可梦% &5分解成功，获得 %奖励%&5。"
+  # 幻兽分解成功提示
+  decompose-success-mythical: "&b幻兽 &e%宝可梦% &b分解成功，获得 %奖励%&b。"
+  # 闪光幻兽分解成功提示
+  decompose-success-shiny-mythical: "&3闪光幻兽 &e%宝可梦% &3分解成功，获得 %奖励%&3。"
+  # 分解取消
+  decompose-cancel: "&7已取消分解。"
+  # 分解失败
+  decompose-fail: "&c分解失败，请稍后再试。"
+  # 绑定精灵不可分解
+  bound-cannot-decompose: "&c此精灵为绑定精灵无法分解。"
+  # Lore 中绑定提示
+  bound-lore: "&c此精灵为绑定精灵无法分解"
+  # 次数不足
+  no-times: "&c今日分解次数不足，剩余 &e%剩余次数%&c 次。"
+  # 重载配置提示
+  reload: "&a配置已重载。"
+  # 次数指令提示
+  times-usage: "&c用法: /pd times give <玩家> <次数>"
+  # 次数指令成功
+  times-give: "&a已为 &e%player%&a 增加 &e%amount%&a 次分解次数。"

@@ -1,0 +1,14 @@
+name: BreedConsumeControl
+main: cn.licry.breedconsume.BreedConsumePlugin
+version: 1.8.5
+load: POSTWORLD
+authors: [OpenAI]
+description: Pixelmon 8.4.2 parent-range IV breeding with hybrid-safe NBT persistence and EVAdjusting dog-collar detection and dual Power Item IV locking.
+commands:
+  breedconsume:
+    aliases: [breedc, ranchconsume]
+    description: 个体合成控制状态与重载
+    usage: /breedconsume [status|reload|items]
+permissions:
+  breedconsume.admin:
+    default: op

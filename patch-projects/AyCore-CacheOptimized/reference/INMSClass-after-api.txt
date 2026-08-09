@@ -1,0 +1,48 @@
+Compiled from "INMSClass.java"
+public abstract class com.aystudio.core.bukkit.nms.INMSClass {
+  private final java.lang.Class<?> sendPacketParamsClass;
+    descriptor: Ljava/lang/Class;
+  private final java.util.concurrent.ConcurrentMap<java.lang.String, java.lang.Class<?>> classCache;
+    descriptor: Ljava/util/concurrent/ConcurrentMap;
+  private final java.util.concurrent.ConcurrentMap<com.aystudio.core.bukkit.nms.packet.EnumPacket, java.lang.reflect.Constructor<?>> packetConstructorCache;
+    descriptor: Ljava/util/concurrent/ConcurrentMap;
+  private final java.util.concurrent.ConcurrentMap<java.lang.Class<?>, java.lang.reflect.Method> getHandleMethodCache;
+    descriptor: Ljava/util/concurrent/ConcurrentMap;
+  private final java.util.concurrent.ConcurrentMap<java.lang.Class<?>, java.lang.reflect.Field> playerConnectionFieldCache;
+    descriptor: Ljava/util/concurrent/ConcurrentMap;
+  private final java.util.concurrent.ConcurrentMap<java.lang.Class<?>, java.lang.reflect.Method> sendPacketMethodCache;
+    descriptor: Ljava/util/concurrent/ConcurrentMap;
+  private final java.util.concurrent.ConcurrentMap<com.aystudio.core.bukkit.nms.INMSClass$FieldKey, java.lang.reflect.Field> fieldCache;
+    descriptor: Ljava/util/concurrent/ConcurrentMap;
+  private volatile java.lang.reflect.Constructor<?> chatComponentTextConstructor;
+    descriptor: Ljava/lang/reflect/Constructor;
+  public com.aystudio.core.bukkit.nms.INMSClass();
+    descriptor: ()V
+
+  public void registerChannel(com.aystudio.core.bukkit.AyCore);
+    descriptor: (Lcom/aystudio/core/bukkit/AyCore;)V
+
+  public void sendTitle(org.bukkit.entity.Player, java.lang.String, java.lang.String, int, int, int);
+    descriptor: (Lorg/bukkit/entity/Player;Ljava/lang/String;Ljava/lang/String;III)V
+
+  public void sendPacket(java.lang.Object, java.lang.Object);
+    descriptor: (Ljava/lang/Object;Ljava/lang/Object;)V
+
+  public java.lang.Object createChatComponentText(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/lang/Object;
+
+  public java.lang.Class<?> classForName(java.lang.String);
+    descriptor: (Ljava/lang/String;)Ljava/lang/Class;
+
+  public java.lang.Object createPacket(com.aystudio.core.bukkit.nms.packet.EnumPacket, java.lang.Object...);
+    descriptor: (Lcom/aystudio/core/bukkit/nms/packet/EnumPacket;[Ljava/lang/Object;)Ljava/lang/Object;
+
+  public java.lang.Object getField(java.lang.Object, java.lang.String, boolean);
+    descriptor: (Ljava/lang/Object;Ljava/lang/String;Z)Ljava/lang/Object;
+
+  private java.lang.Class<?> resolveClass(java.lang.String) throws java.lang.ClassNotFoundException;
+    descriptor: (Ljava/lang/String;)Ljava/lang/Class;
+
+  public abstract java.lang.String getVID();
+    descriptor: ()Ljava/lang/String;
+}

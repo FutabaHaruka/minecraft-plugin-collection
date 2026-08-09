@@ -1,0 +1,67 @@
+name: MintControl
+main: cn.licry.mintcontrol.MintControlPlugin
+version: 1.0.0-rc17-p2
+load: POSTWORLD
+authors: [LiChenYun]
+description: Native Pixelmon 1.12.2 mint policy interceptor; money and PlayerPoints only.
+softdepend: [Vault, PlayerPoints, PlaceholderAPI]
+commands:
+  mintcontrol:
+    aliases:
+      - mintctl
+      - mintc
+    description: MintControl help, diagnostics and Pokemon list administration.
+permissions:
+  mintcontrol.default:
+    description: Default player permission fallback.
+    default: true
+  mintcontrol.command:
+    description: Compatibility bundle for player commands.
+    default: false
+  mintcontrol.use:
+    description: Global native mint-use override. Explicit true/false overrides *.default.
+    default: false
+  mintcontrol.mint.default:
+    description: Global mint-use fallback override.
+    default: false
+  mintcontrol.command.help:
+    description: Allows viewing MintControl help. Explicit false overrides mintcontrol.default.
+    default: true
+  mintcontrol.command.check:
+    default: false
+  mintcontrol.command.list:
+    default: false
+
+  mintcontrol.admin:
+    description: Full MintControl administration bundle.
+    default: op
+    children:
+      mintcontrol.admin.reload: true
+      mintcontrol.admin.lists: true
+      mintcontrol.admin.status: true
+  mintcontrol.admin.reload:
+    default: false
+  mintcontrol.admin.lists:
+    description: Allows managing global Pokemon black/white lists.
+    default: false
+  mintcontrol.admin.status:
+    description: Shows command binding, classloader and native event bridge status.
+    default: false
+  mintcontrol.bypass.pokemon-blacklist:
+    description: Bypasses the global Pokemon blacklist.
+    default: op
+  mintcontrol.bypass.pokemon-whitelist:
+    description: Bypasses the global Pokemon whitelist.
+    default: false
+  mintcontrol.bypass.pokemon-lists:
+    description: Bypasses both Pokemon blacklists and whitelists.
+    default: false
+  mintcontrol.bypass.cost:
+    description: Bypasses all extra configured costs.
+    default: op
+  mintcontrol.bypass.chance:
+    description: Makes native mint interception chance always pass.
+    default: op
+  mintcontrol.bypass.cooldown:
+    description: Bypasses the global mint cooldown.
+    default: op
